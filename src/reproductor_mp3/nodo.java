@@ -1,4 +1,4 @@
-package reproductor_de_musica;
+package reproductor_mp3;
 
 public class nodo {
     

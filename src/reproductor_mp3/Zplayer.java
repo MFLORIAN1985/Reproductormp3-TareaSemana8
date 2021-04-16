@@ -1,4 +1,4 @@
-package reproductor_de_musica;
+package reproductor_mp3;
 
 import java.util.Map;
 import javazoom.jlgui.basicplayer.BasicController;
@@ -12,9 +12,9 @@ public class Zplayer implements BasicPlayerListener {
     BasicController control = (BasicController) player;
     float[] equalizador;
     float[] eq = new float[32]; 
-    ventana_principal vp;
+    ventana_reproductor vp;
 
-    public Zplayer(ventana_principal v) {
+    public Zplayer(ventana_reproductor v) {
         player.addBasicPlayerListener(this);
         vp = v;
     }

@@ -107,6 +107,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="d0" green="d0" red="b" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -129,18 +132,27 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="agregar" min="-2" max="-2" attributes="0"/>
-                  <Component id="eliminar" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="detener" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="150" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="150" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="detener" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="agregar" max="32767" attributes="0"/>
+                              <Component id="eliminar" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                               <Component id="jLabel2" min="-2" pref="32" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -272,7 +284,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="eliminar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Quitar canci&#xf3;n actual"/>
+        <Property name="text" type="java.lang.String" value="Quitar "/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="eliminarActionPerformed"/>
@@ -280,7 +292,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="agregar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar canci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Agregar "/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregarActionPerformed"/>
@@ -328,7 +340,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="detener">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Detener reproducci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Detener "/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="detenerActionPerformed"/>
@@ -522,10 +534,13 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tipo_reproduccionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="tipo de reproduccion"/>
+        <Property name="text" type="java.lang.String" value="Modo de reproduccion"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

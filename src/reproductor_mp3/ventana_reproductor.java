@@ -1,4 +1,4 @@
-package reproductor_de_musica;
+package reproductor_mp3;
 
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
 
-public class ventana_principal extends javax.swing.JFrame {
+public class ventana_reproductor extends javax.swing.JFrame {
 
     private lista list = new lista();
     private nodo actual = null;
@@ -37,7 +37,7 @@ public class ventana_principal extends javax.swing.JFrame {
     private boolean cambios = false;
     protected boolean detenido = false;
 
-    public ventana_principal() {
+    public ventana_reproductor() {
         setTitle("Reproductor UMG");
         setResizable(false);//Resizable permite crear componentes que se puedan arrastrar librmente por un panel
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/iconos/icono.png"));
@@ -126,9 +126,9 @@ public class ventana_principal extends javax.swing.JFrame {
             ultimaLista = ruta;
             cambios = false;
         } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error\nal cargar la lista!!!", "alerta", 1);
+            JOptionPane.showMessageDialog(null, "Error\nNo se puede cargar la lista", "Atención", 1);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error!!!", "alerta", 1);
+            JOptionPane.showMessageDialog(null, "Error!!!", "Atención", 1);
         }
         lista_can.setModel(lista_modelo);
     }//Fin de cargar lista
@@ -150,7 +150,7 @@ public class ventana_principal extends javax.swing.JFrame {
     }//Fin de guardar lista
 
     public String crearArchivoLista() {
-        String nombreLista = JOptionPane.showInputDialog("Escriba el nombre de la lista");
+        String nombreLista = JOptionPane.showInputDialog("Ingrese el nombre de la lista");
         if (nombreLista == null || nombreLista.isEmpty()) {
             return null;
         }
@@ -220,17 +220,18 @@ public class ventana_principal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setBackground(new java.awt.Color(11, 208, 208));
 
         jScrollPane1.setViewportView(lista_can);
 
-        eliminar.setText("Quitar canción actual");
+        eliminar.setText("Quitar ");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarActionPerformed(evt);
             }
         });
 
-        agregar.setText("Agregar canción");
+        agregar.setText("Agregar ");
         agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarActionPerformed(evt);
@@ -265,7 +266,7 @@ public class ventana_principal extends javax.swing.JFrame {
             }
         });
 
-        detener.setText("Detener reproducción");
+        detener.setText("Detener ");
         detener.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 detenerActionPerformed(evt);
@@ -425,8 +426,13 @@ public class ventana_principal extends javax.swing.JFrame {
         nombre_can.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         tipo_reproduccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "normal", "inversa", "aleatoria" }));
+        tipo_reproduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipo_reproduccionActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("tipo de reproduccion");
+        jLabel1.setText("Modo de reproduccion");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/configuracion.png"))); // NOI18N
 
@@ -519,17 +525,22 @@ public class ventana_principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(agregar)
-                    .addComponent(eliminar)
-                    .addComponent(detener)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(detener)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(agregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 20, Short.MAX_VALUE)
+                                .addGap(0, 25, Short.MAX_VALUE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -620,14 +631,14 @@ public class ventana_principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 //boton agregar cancion
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivo MP3", "mp3", "mp3"));
+        JFileChooser fileChooser = new JFileChooser();//Abre ventana para poder navegar y agregar canciones
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Archivo MP3", "mp3", "mp3"));//Mostrará los archivos con la extensión mp3
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.setMultiSelectionEnabled(true);
         int seleccion = fileChooser.showOpenDialog(this);
 
         if (seleccion == JFileChooser.APPROVE_OPTION) {
-            File files[] = fileChooser.getSelectedFiles();
+            File files[] = fileChooser.getSelectedFiles();//Gardará de 1 en 1os archivos
             boolean noMp3 = false, repetidos = false;
             cambios = true;
 
@@ -648,10 +659,10 @@ public class ventana_principal extends javax.swing.JFrame {
                 lista_can.setModel(lista_modelo);
             }
             if (noMp3) {
-                JOptionPane.showMessageDialog(null, "Se encontro archivo(s) no mp3", "alerta", 0);
+                JOptionPane.showMessageDialog(null, "Se encontro archivo(s) no mp3", "Atención", 0);
             }
             if (repetidos) {
-                JOptionPane.showMessageDialog(null, "Se encontraron repetidos", "alerta", 0);
+                JOptionPane.showMessageDialog(null, "Están repetidos", "Atención", 0);
             }
         }
     }//GEN-LAST:event_agregarActionPerformed
@@ -659,7 +670,7 @@ public class ventana_principal extends javax.swing.JFrame {
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
         detenido = true;
         if (list.IsVacio()) {
-            JOptionPane.showMessageDialog(null, "no hay canciones", "alerta", 1);
+            JOptionPane.showMessageDialog(null, "No existen archivos de audio", "Atención", 1);
         } else {
             if (actual == null) {
                 actual = list.primero;
@@ -688,11 +699,11 @@ public class ventana_principal extends javax.swing.JFrame {
                     }
                 }
             } catch (BasicPlayerException ex) {
-                JOptionPane.showMessageDialog(null, "error al abrir\nla cancion!!!", "alerta", 1);
+                JOptionPane.showMessageDialog(null, "Error\nEn la canción!!!", "Atención", 1);
                 x = 0;
             } catch (MalformedURLException ex) {
-                Logger.getLogger(ventana_principal.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "error al abrir la direccion\nde la cancion!!!", "alerta", 1);
+                Logger.getLogger(ventana_reproductor.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error\nEn la dirección!!!", "alerta", 1);
                 x = 0;
             }
         }
@@ -708,7 +719,7 @@ public class ventana_principal extends javax.swing.JFrame {
             jSlider1.setEnabled(false);
             jSlider2.setEnabled(false);
         } catch (BasicPlayerException ex) {
-            Logger.getLogger(ventana_principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ventana_reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
         detenido = false;
     }//GEN-LAST:event_detenerActionPerformed
@@ -717,7 +728,7 @@ public class ventana_principal extends javax.swing.JFrame {
         try {
             player.control.setGain((double) jSlider1.getValue() / 100);
         } catch (BasicPlayerException ex) {
-            Logger.getLogger(ventana_principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ventana_reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jSlider1StateChanged
 
@@ -725,10 +736,10 @@ public class ventana_principal extends javax.swing.JFrame {
         try {
             player.control.setPan((float) jSlider2.getValue() / 100);
         } catch (BasicPlayerException ex) {
-            Logger.getLogger(ventana_principal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ventana_reproductor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jSlider2StateChanged
-
+//Metodos para controlar el equalizador
     private void slidereqStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slidereqStateChanged
         player.eq[0] = (float) slidereq.getValue() / 100;
     }//GEN-LAST:event_slidereqStateChanged
@@ -768,7 +779,8 @@ public class ventana_principal extends javax.swing.JFrame {
     private void slidereq9StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slidereq9StateChanged
         player.eq[9] = (float) slidereq9.getValue() / 100;
     }//GEN-LAST:event_slidereq9StateChanged
-
+//Fin de los métodos para controlar el equalizador
+    
     protected void eventoSiguiente(){
         siguienteActionPerformed(null);
     }
@@ -779,21 +791,21 @@ public class ventana_principal extends javax.swing.JFrame {
         }
 
         switch (tipo_reproduccion.getSelectedIndex()) {
-            case 0:
+            case 0://normal
                 if (actual.anterior == null) {
                     return;
                 }
                 actual = actual.anterior;
                 break;
 
-            case 1:
+            case 1://inversa
                 if (actual.siguiente == null) {
                     return;
                 }
                 actual = actual.siguiente;
                 break;
 
-            default:
+            default://aleatoria
                 int index = (int) (Math.random() * list.tam);
                 actual = list.get_cancion(index);
                 break;
@@ -809,21 +821,21 @@ public class ventana_principal extends javax.swing.JFrame {
         }
 
         switch (tipo_reproduccion.getSelectedIndex()) {
-            case 0:
+            case 0://normal
                 if (actual.siguiente == null) {
                     return;
                 }
                 actual = actual.siguiente;
                 break;
 
-            case 1:
+            case 1://inversa 
                 if (actual.anterior == null) {
                     return;
                 }
                 actual = actual.anterior;
                 break;
 
-            default:
+            default://aleatoria
                 int index = (int) (Math.random() * list.tam);
                 actual = list.get_cancion(index);
                 break;
@@ -839,7 +851,7 @@ public class ventana_principal extends javax.swing.JFrame {
         }
         int q = list.indice(actual);
         if (q == -1) {
-            JOptionPane.showMessageDialog(null, "ha ocurrido un\nerror inesperado!!!", "alerta", 1);
+            JOptionPane.showMessageDialog(null, "Error", "Atención", 1);
         } else {
             lista_modelo.remove(q);
             list.borrar(actual);
@@ -872,7 +884,7 @@ public class ventana_principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        JOptionPane.showMessageDialog(null, "verifique que el nombre de las canciones no tengan\ncaracteres especiales como tildes o apostrofos", "alerta", 1);
+        JOptionPane.showMessageDialog(null, "Las canciones no deben tener caracteres especiales", "Atención", 1);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -897,7 +909,7 @@ public class ventana_principal extends javax.swing.JFrame {
 
             String name = chooser.getSelectedFile().getName();
             if (name.length() < 4 || !name.substring(name.length() - 4, name.length()).equalsIgnoreCase(".lis")) {
-                JOptionPane.showMessageDialog(null, "no es una lista", "alerta", 0);
+                JOptionPane.showMessageDialog(null, "No corresponde a lista", "Atención", 0);
                 return;
             }
             cargarLista(chooser.getSelectedFile().getPath());
@@ -906,17 +918,21 @@ public class ventana_principal extends javax.swing.JFrame {
 
     private void guardar_listaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar_listaActionPerformed
         if (list.IsVacio()) {
-            JOptionPane.showMessageDialog(null, "no hay canciones!!!", "alerta", 1);
+            JOptionPane.showMessageDialog(null, "No existen archivos de audio", "Atención", 1);
             return;
         }
         guardarLista(crearArchivoLista());
     }//GEN-LAST:event_guardar_listaActionPerformed
 
+    private void tipo_reproduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipo_reproduccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipo_reproduccionActionPerformed
+// hace visibel la ventana principal
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ventana_principal().setVisible(true);
+                new ventana_reproductor().setVisible(true);
             }
         });
     }

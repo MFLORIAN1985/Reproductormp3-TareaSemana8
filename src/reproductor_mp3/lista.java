@@ -1,11 +1,11 @@
-package reproductor_de_musica;
+package reproductor_mp3;
 
 public class lista {
     //Las listas doblemente enlazadas tienen dos apuntandores, uno al nodo siguiente y el otro al nodo anterior, adicional el nodo que contiene la información
     //Por ellos se declaran los dos primeros objetos tipo nodo y la variable int de nombre tam para el tamaño de la lista.
     nodo primero;
     nodo ultimo;
-    int tam;
+    int tam;//tamaño de lista, aumentará cada vez que se cree un nodo o en su caso disminuirá
 
     public lista() {
         primero = ultimo = null;//Se inician los nodos en null porque al iniciar el programa estarán vacíos
@@ -35,6 +35,7 @@ public class lista {
         tam++;// y aumentará el tamaño de la lita
     }//Fin de insertar
 
+    // retornará la posición donde está el nodo dentro de la lista
     public int indice(nodo b) {
         nodo aux = primero;
         int con = 0;
@@ -48,7 +49,7 @@ public class lista {
         }
         return -1;
     }
-    
+    //Retornará el nodo que se esté buscando, en este caso la canción.
     public nodo get_cancion(int indice){
         if (indice < 0 || indice >= tam) {
             return null;
@@ -62,8 +63,9 @@ public class lista {
         }
         
         return aux;
-    }
+    }//Fin get_cancion
 
+    //borrará el nodo que se le indique, en este caso la canción
     public void borrar(nodo b) {
         if (b == primero) {
             if (tam == 1) {
